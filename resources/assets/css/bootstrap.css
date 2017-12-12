@@ -7563,7 +7563,7 @@ a.bg-dark:focus, a.bg-dark:hover {
     padding-bottom: 0 !important;
   }
   .pl-md-0,
-  .px-md-0 { 
+  .px-md-0 {
     padding-left: 0 !important;
   }
   .p-md-1 {
@@ -8371,5 +8371,4 @@ a.text-dark:focus, a.text-dark:hover {
 .invisible {
   visibility: hidden !important;
 }
-
 /*# sourceMappingURL=bootstrap.css.map */
