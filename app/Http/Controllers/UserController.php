@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class create extends Controller
+use App\User;
+use App\Friend;
+
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,7 +17,7 @@ class create extends Controller
      */
     public function index()
     {
-
+        return view('profile');
     }
 
     /**
@@ -47,6 +51,31 @@ class create extends Controller
     {
         //
     }
+    
+    public function friends()
+    {
+        $friends = Friend::where('user_id', Auth::User()->id)->get();
+        return view('friend', compact('friends'));
+    }
+
+    public function storefriend(Request $request)
+    {
+        $user = User::where('name', $request->input('user_name'))->firstOrFail();
+        Friend::updateOrCreate([
+            'user_id' => Auth::User()->id,
+            'friend_id' => $user->id
+        ]);
+        return redirect()->route('profile.friends');
+    }
+
+    public function removefriend(Request $request)
+    {
+        Friend::where([
+            'user_id' => Auth::User()->id,
+            'friend_id' => $request->input('user_id')
+        ])->firstOrFail()->delete();
+        return redirect()->route('profile.friends');
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -63,12 +92,18 @@ class create extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $user = User::find(Auth::User()->id);
+        $user->race = $request->input('race');
+        $user->family = $request->input('family');
+        $user->age = $request->input('age');
+        $user->food = $request->input('food');
+        $user->save();
+
+        return redirect()->route('profil.index');
     }
 
     /**

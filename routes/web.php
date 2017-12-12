@@ -19,5 +19,10 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('create', 'create');
+Route::get('/profile', 'UserController@index')->name('profil.index');
+Route::post('/profile', 'UserController@update');
+
+Route::get('/profile/friends', 'UserController@friends')->name('profile.friends');
+Route::post('/profile/friends', 'UserController@storefriend');
+Route::delete('/profile/friends', 'UserController@removefriend');
 
