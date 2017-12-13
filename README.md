@@ -1,5 +1,3 @@
-
-
 # FLIESBOOK - Carnet d'adresse pour insectes
 
 ---
@@ -14,6 +12,7 @@ En tant qu'utilisateur insecte, je veux pouvoir m'inscrire, me connecter à l'ai
 ---
 
 # User story 2
+
 ## Afficher / Modifier mes infos
 
 En tant qu'utilisateur insecte, je veux pouvoir afficher et modifier mes informations personnelles (âge, famille, race, nourriture).
@@ -27,6 +26,7 @@ En tant qu'utilisateur insecte, je veux pouvoir afficher et modifier mes informa
 ---
 
 # User story 3
+<<<<<<< HEAD
 ## Ajouter / Lister / Supprimer un insecte de sa liste d'amis insectes
 
 En tant qu'utilisateur insecte, je veux pouvoir ajouter et supprimer un insecte de ma liste d'amis insectes, et afficher la liste de mes amis insectes.
