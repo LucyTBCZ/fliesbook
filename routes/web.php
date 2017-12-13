@@ -26,3 +26,5 @@ Route::get('/profile/friends', 'UserController@friends')->name('profile.friends'
 Route::post('/profile/friends', 'UserController@storefriend');
 Route::delete('/profile/friends', 'UserController@removefriend');
 
+Route::get('/food', 'foodOption@index');
+

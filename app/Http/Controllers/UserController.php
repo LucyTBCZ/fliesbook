@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 
 use App\User;
 use App\Friend;
+use App\FoodOption;
+use App\RaceOption;
 
 class UserController extends Controller
 {
@@ -17,7 +19,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('profile');
+        $options=FoodOption::all();
+        $specimens=RaceOption::all();
+        return view('profile', compact('options', 'specimens'));
+
     }
 
     /**

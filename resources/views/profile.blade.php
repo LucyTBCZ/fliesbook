@@ -13,7 +13,13 @@
                         {{ csrf_field() }}
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             <label class="col-md-auto control-label" for="race">Race</label>
-                            <input type="text" class="form-control" name="race" id="race" value="{{ Auth::User()->race }}">
+                            <select name="race" id="race" class="form-control">
+                                    
+                                    @foreach($specimens as $specimen)
+                                    <option {{ Auth::User()->race == $specimen->espece ? 'selected' : '' }}>{{ $specimen->espece }}</option> 
+                                    
+                                    @endforeach
+                                </select>
                         </div>
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             <label class="col-md-auto control-label" for="family">Famille</label>
@@ -21,7 +27,13 @@
                         </div>
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                                 <label class="col-md-auto control-label" for="food">Nourriture</label>
-                                <input type="text" class="form-control" name="food" id="food" value="{{ Auth::User()->food }}">
+                                <select name="food" id="food" class="form-control">
+                                    
+                                    @foreach($options as $option)
+                                    <option {{ Auth::User()->food == $option->type ? 'selected' : '' }}>{{ $option->type }}</option> 
+                                    
+                                    @endforeach
+                                </select>
                         </div>
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                                 <label class="col-md-auto control-label" for="age">Age</label>

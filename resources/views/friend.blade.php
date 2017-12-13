@@ -29,6 +29,7 @@
                             <li>Vous n'avez aucun ami</li>
                         @endforelse
                     </ul>
+                    <a href="{{route('profil.index')}}">Retour au profil</a>
                 </div>
             </div>
         </div>
