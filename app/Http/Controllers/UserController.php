@@ -10,6 +10,11 @@ use App\Friend;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -54,17 +59,57 @@ class UserController extends Controller
     
     public function friends()
     {
-        $friends = Friend::where('user_id', Auth::User()->id)->get();
-        return view('friend', compact('friends'));
+        $friendsaccepted = Friend::where([
+            'user_id' => Auth::User()->id,
+            'status' => 'accepted'
+        ])->get();
+        $friendspending = Friend::where([
+            'friend_id' => Auth::User()->id,
+            'status' => 'pending'
+        ])->get();
+        return view('friend', compact('friendsaccepted', 'friendspending'));
     }
 
-    public function storefriend(Request $request)
+    public function postFriend(Request $request)
     {
-        $user = User::where('name', $request->input('user_name'))->firstOrFail();
-        Friend::updateOrCreate([
-            'user_id' => Auth::User()->id,
-            'friend_id' => $user->id
-        ]);
+        if($request->has('add_friend'))
+        {
+            $user = User::where('name', $request->input('user_name'))->firstOrFail();
+            $friend = Friend::where([
+                'user_id' => Auth::User()->id,
+                'friend_id' => $user->id
+            ])->first();
+            
+            if(!$friend && Auth::User()->id !== $user->id) {
+                Friend::create([
+                    'user_id' => Auth::User()->id,
+                    'friend_id' => $user->id,
+                    'status' => 'pending'
+                ]);
+            }
+        }
+        else if($request->has('accept_friend'))
+        {
+            $friend = Friend::where([
+                'user_id' => $request->input('user_id'),
+                'friend_id' => Auth::User()->id
+            ])->firstOrFail();
+            $friend->status = 'accepted';
+            $friend->save();
+
+            Friend::updateOrCreate([
+                'user_id' => Auth::User()->id,
+                'friend_id' => $request->input('user_id'),
+                'status' => 'accepted'
+            ]);
+        }
+        else if($request->has('refuse_friend'))
+        {
+            Friend::where([
+                'user_id' => $request->input('user_id'),
+                'friend_id' => Auth::User()->id
+            ])->firstOrFail()->delete();
+        }
         return redirect()->route('profile.friends');
     }
 
@@ -73,6 +118,10 @@ class UserController extends Controller
         Friend::where([
             'user_id' => Auth::User()->id,
             'friend_id' => $request->input('user_id')
+        ])->firstOrFail()->delete();
+        Friend::where([
+            'user_id' => $request->input('user_id'),
+            'friend_id' => Auth::User()->id
         ])->firstOrFail()->delete();
         return redirect()->route('profile.friends');
     }
