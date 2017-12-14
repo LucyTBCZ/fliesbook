@@ -23,7 +23,7 @@ Route::get('/profile', 'UserController@index')->name('profil.index');
 Route::post('/profile', 'UserController@update');
 
 Route::get('/profile/friends', 'UserController@friends')->name('profile.friends');
-Route::post('/profile/friends', 'UserController@storefriend');
+Route::post('/profile/friends', 'UserController@postFriend');
 Route::delete('/profile/friends', 'UserController@removefriend');
 
 Route::get('/food', 'foodOption@index');
