@@ -43,7 +43,10 @@
                             <label for="race" class="col-md-auto control-label">Race of the insect</label>
 
                             <div class="col-md-auto">
-                                <input id="race" type="text" class="form-control" name="race" value="{{ old('race') }}" required autofocus>
+                                <select name="race" id="race">
+                                	<option>vertébré</option>
+                                	<option>invertébré</option>
+                                </select>
                             </div>
                         </div>  
 
@@ -51,7 +54,7 @@
                             <label for="family" class="col-md-auto control-label">Family of the insect</label>
 
                             <div class="col-md-auto">
-                                <input id="family" type="text" class="form-control" name="family" value="{{ old('race') }}" required autofocus>
+                                <input id="family" type="text" class="form-control" name="family" value="{{ old('family') }}" required autofocus>
                             </div>
                         </div>   
 
@@ -59,7 +62,11 @@
                             <label for="food" class="col-md-auto control-label">Food of the insect</label>
 
                             <div class="col-md-auto">
-                                <input id="food" type="text" class="form-control" name="food" value="{{ old('race') }}" required autofocus>
+                                <select name="food" id="food">
+                                	<option>vegetable</option>
+                                	<option>meat</option>
+                                	<option>insect</option>
+                                </select>
                             </div>
                         </div> 
 
